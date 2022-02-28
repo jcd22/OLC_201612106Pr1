@@ -1,0 +1,14 @@
+graph g{
+graph [pad="0.15", nodesep="0.15", ranksep="1"];
+0[shape=Mrecord,color=blue1,label="{ N |{1|<here>letra|1}|1}"];
+1[shape=Mrecord,color=blue1,label="{ N |{2|<here>idd|2}|2}"];
+2[shape=Mrecord,color=blue1,label="{ A |{[2]|<here>*|[2]}| _ }"];
+2--1;
+3[shape=Mrecord,color=blue1,label="{ N |{[1]|<here>.|[1, 2]}| _ }"];
+3--0;
+3--2;
+4[shape=Mrecord,color=blue1,label="{ N |{3|<here>#|3}|3}"];
+5[shape=Mrecord,color=blue1,label="{ N |{[1]|<here>.|[3]}| _ }"];
+5--3;
+5--4;
+}
