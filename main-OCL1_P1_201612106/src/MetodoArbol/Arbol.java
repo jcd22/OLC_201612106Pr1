@@ -9,6 +9,7 @@ import Analizadores.M_Expresion;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -107,6 +108,9 @@ public class Arbol {
                     
                     raiz.setNumEstado(numEstados++);
                     dotArbol += raiz.getNumEstado()+"[shape=Mrecord,color=blue1,label=\"{ "+anu+" |{"+prim+"|<here>"+raiz.getNombre()+"|"+ult+"}| _ }\"];"+"\n";
+                   
+                    // Siguientes
+                    calcSiguientes(raiz.getEr_izq().getUltimos(),raiz.getEr_der().getPrimeros());
                     
                 }else if(raiz.getNombre().equals("|")){
                     if(raiz.getEr_izq().getAnulable()==true || raiz.getEr_der().getAnulable()==true){
@@ -160,6 +164,9 @@ public class Arbol {
                     raiz.setNumEstado(numEstados++);
                     dotArbol += raiz.getNumEstado()+"[shape=Mrecord,color=blue1,label=\"{ "+anu+" |{"+prim+"|<here>"+raiz.getNombre()+"|"+ult+"}| _ }\"];"+"\n";
                     
+                    // Siguientes
+                    calcSiguientes(raiz.getEr_izq().getUltimos(),raiz.getEr_izq().getPrimeros());
+                    
                 }else if(raiz.getNombre().equals("+")){
                     if(raiz.getEr_izq().getAnulable()==true){
                         raiz.setAnulable(true);      
@@ -183,6 +190,8 @@ public class Arbol {
                     
                     raiz.setNumEstado(numEstados++);
                     dotArbol += raiz.getNumEstado()+"[shape=Mrecord,color=blue1,label=\"{ "+anu+" |{"+prim+"|<here>"+raiz.getNombre()+"|"+ult+"}| _ }\"];"+"\n";
+                    // Siguientes
+                    calcSiguientes(raiz.getEr_izq().getUltimos(),raiz.getEr_izq().getPrimeros());
                     
                 } else if(raiz.getNombre().equals("?")){
                     raiz.setAnulable(true);
@@ -223,11 +232,23 @@ public class Arbol {
                 //tabla
                 tabla.setNumerados(numTerminales);//obtengo numerados n
                 tabla.terminales.add(raiz.getNombre());//obtengo terminales
+                tabla.getSiguientes().add(new ArrayList<Integer>()); //inserta lista hasta n
             }
 
         }
     }//postOrd
-    
+ //actual:array(primeros o ultimos)con actuales asignara siguientes ; SigActual:array(primeros o ultimos)de siguietes a asignar a actual
+    public void calcSiguientes(ArrayList<Integer> actual,ArrayList<Integer> SigActual){
+        for(int i =0;i<actual.size();i++){
+            int posS =actual.get(i)-1;//pos en columna siguientes
+            for(int j=0;j<SigActual.size();j++){//recorro los Siguientes meterlos en la posS de Tabla Siguientes
+                
+             tabla.getSiguientes().get(posS).add(SigActual.get(j));
+             
+            }//for           
+        }//for actual
+        
+    }
     
     //--------------------------------------
     

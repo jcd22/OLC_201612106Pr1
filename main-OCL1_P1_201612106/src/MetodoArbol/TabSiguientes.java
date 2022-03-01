@@ -15,12 +15,22 @@ public class TabSiguientes {
     
     int numerados;
     ArrayList<String> terminales;
-    ArrayList[] siguientes; // el tamano sera igual al lenght de numerados.
+    ArrayList<ArrayList<Integer>> siguientes; // el tamano sera igual al lenght de numerados.
     
     public TabSiguientes(){
         numerados = 0;
         terminales = new ArrayList<>();
-        siguientes = new ArrayList[3]; // por el momento
+        siguientes = new ArrayList<>(); // por el momento
+    }
+
+    //----------------
+    
+    public ArrayList<ArrayList<Integer>> getSiguientes() {
+        return siguientes;
+    }
+
+    public void setSiguientes(ArrayList<ArrayList<Integer>> siguientes) {
+        this.siguientes = siguientes;
     }
 
     public int getNumerados() {
@@ -39,11 +49,4 @@ public class TabSiguientes {
         this.terminales = terminales;
     }
 
-    public ArrayList[] getSiguientes() {
-        return siguientes;
-    }
-
-    public void setSiguientes(ArrayList[] siguientes) {
-        this.siguientes = siguientes;
-    }
 }
