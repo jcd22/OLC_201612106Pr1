@@ -6,6 +6,7 @@
 package MetodoArbol;
 
 import Analizadores.M_Expresion;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -36,10 +37,16 @@ public class Arbol {
     }
     
     public void GraficaArbol() throws InterruptedException{
-         try
-                {           
-                    FileOutputStream arch = new FileOutputStream("Arbol"+numArbol+".dot");
-            
+         try{
+//                  final String os = System.getProperty("os.name");
+//                    if (os.contains("Windows")) {
+//                    Runtime.getRuntime().exec("cd Arboles");
+//                    } else {
+//                    Runtime.getRuntime().exec("clear");
+//                    }            
+                    //Thread.sleep(1000);       
+                    FileOutputStream arch = new FileOutputStream(new File(".\\Arboles\\Arbol"+numArbol+".dot"));
+                    
                     try (PrintStream imprimir = new PrintStream(arch))
                     {
                         dotArbol += "graph g{"+"\n";
@@ -48,10 +55,9 @@ public class Arbol {
                         dotArbol += "}";
                         imprimir.println(dotArbol);
                     }
-                       //limpia dotArbol 
-                    Runtime.getRuntime().exec("dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
-                    Thread.sleep(1000);
-                    Runtime.getRuntime().exec("nomacs Arbol"+numArbol+".png");
+                       //limpia dotArbol                   
+                    Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" cd .\\Arboles && dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
+                    //Runtime.getRuntime().exec("dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
                     Thread.sleep(1000);
                 
                 }catch(IOException e){ }      

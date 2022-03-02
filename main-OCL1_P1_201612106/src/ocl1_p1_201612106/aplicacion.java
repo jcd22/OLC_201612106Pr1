@@ -111,6 +111,7 @@ public class aplicacion extends javax.swing.JFrame {
             //hacer un for aqui
             for (int i = 0; i <sintactico.lista_ER.size(); i++) {//recorro lista_ER para los arboles
                 M_Expresion expresionA = new M_Expresion("#");
+                // raiz del arbol
                 M_Expresion raiz = new M_Expresion(".",sintactico.lista_ER.get(i).getListaEr(),expresionA);
                 Arbol arbol = new Arbol(raiz);
                 try {               

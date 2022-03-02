@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class TabSiguientes {
     
-    int numerados;
+    int numerados;//tiene el tamano de filas
     ArrayList<String> terminales;
     ArrayList<ArrayList<Integer>> siguientes; // el tamano sera igual al lenght de numerados.
     
