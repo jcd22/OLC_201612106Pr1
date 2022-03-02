@@ -109,18 +109,25 @@ public class aplicacion extends javax.swing.JFrame {
         // Boton GENERAR arbol
         if(sintactico.lista_ER.size() !=0){
             //hacer un for aqui
-            for (int i = 0; i <sintactico.lista_ER.size(); i++) {//recorro lista_ER para los arboles
+//            for (int i = 0; i <sintactico.lista_ER.size(); i++) {//recorro lista_ER para los arboles
                 M_Expresion expresionA = new M_Expresion("#");
                 // raiz del arbol
-                M_Expresion raiz = new M_Expresion(".",sintactico.lista_ER.get(i).getListaEr(),expresionA);
+                M_Expresion raiz = new M_Expresion(".",sintactico.lista_ER.get(0).getListaEr(),expresionA);
                 Arbol arbol = new Arbol(raiz);
                 try {               
-                   arbol.GraficaArbol(); 
+                   arbol.GraficaArbol();
+//                 System.out.println(raiz.getPrimeros());
                    Arbol.numArbol++;
+                   
+                   TabSiguientes tabSig = arbol.getTabla();//obtengo toda la tabla siguientes
+                   //se crea la tabla
+                   TabTransiciones tabTran = new TabTransiciones(raiz.getPrimeros(),tabSig);
+                    System.out.println("jfdj");
+
                 } catch (InterruptedException ex) {
                     Logger.getLogger(aplicacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }                       
+//            }//for                      
            
         }//fin boton
         

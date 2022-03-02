@@ -13,19 +13,20 @@ import java.util.ArrayList;
  */
 public class EstadoA {
     
-    public static int numEstadoA=0;
+    public static int numEstadoA=0;//numero de estado en la listaEstados
     String nombre;
-    ArrayList<Integer> contenido;
-    ArrayList<String>  terminalesTran;//terminales con los q se viaja
-    ArrayList<String>  estadosTran;//estados a los q se vija con los term
-    ArrayList<ArrayList<Integer>> contenidosTran;//contenido del estado a ir
-    boolean aceptacion;//cuando ya este todo lleno se verificara esta var
+    private ArrayList<Integer> contenido;
+    private ArrayList<String>  terminalesTran;//terminales con los q se viaja
+    private ArrayList<String>  estadosTran;//estados a los q se vija con los term
+    private ArrayList<ArrayList<Integer>> contenidosTran;//contenido del estado a ir
+    private boolean aceptacion;//cuando ya este todo lleno se verificara esta var
     
     public EstadoA(){
         this.nombre ="";
         this.contenido = new ArrayList<Integer>();
         this.terminalesTran = new ArrayList<String>();
         this.estadosTran = new ArrayList<String>();
+        this.contenidosTran = new ArrayList<ArrayList<Integer>>();
         aceptacion = false;
     }
     
@@ -34,6 +35,7 @@ public class EstadoA {
         this.contenido = contenido;
         this.terminalesTran = new ArrayList<String>();
         this.estadosTran = new ArrayList<String>();
+        this.contenidosTran = new ArrayList<ArrayList<Integer>>();
         aceptacion = false;
     }  
 

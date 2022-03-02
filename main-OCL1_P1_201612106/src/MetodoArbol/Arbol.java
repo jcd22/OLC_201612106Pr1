@@ -243,7 +243,11 @@ public class Arbol {
 
         }
     }//postOrd
- //actual:array(primeros o ultimos)con actuales asignara siguientes ; SigActual:array(primeros o ultimos)de siguietes a asignar a actual
+
+    /**
+     * @param actual: array(primeros o ultimos)con actuales asignara siguientes
+     * @param sigActual: array(primeros o ultimos)de siguietes a asignar a actual
+     */
     public void calcSiguientes(ArrayList<Integer> actual,ArrayList<Integer> SigActual){
         for(int i =0;i<actual.size();i++){
             int posS =actual.get(i)-1;//pos en columna siguientes

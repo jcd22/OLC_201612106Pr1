@@ -19,35 +19,51 @@ public class TabTransiciones {
      * @param primeros:recibe primeros de raiz para el estado 0
      */
    public TabTransiciones(ArrayList<Integer> primeros,TabSiguientes tabla){
-       listaEstados.add(new EstadoA("S0",primeros));//crea primer estado
        this.tabla = tabla;
-       //listaEstados.get(0)
+       EstadoA aux0 = new EstadoA(primeros);
+       aux0.setNombre("S0");
+       listaEstados.add(aux0);//crea primer estado S0
+       
+       HacerTabla();
    }
    //////////////////////
-   
-   public void HacerTabla(EstadoA actual){
-       EstadoA eAux = new EstadoA();       
-       for(int i=0;i<actual.getContenido().size();i++){//recorre el contenido del estado actual
-           
-           int numerado = actual.getContenido().get(i)-1; //1 - 1 ,obtengo numerado
-           String terminal = tabla.getTerminales().get(numerado);//*veo terminal transicion de tab siguientes: a
-           if(actual.getTerminalesTran().indexOf(terminal) == -1){//no hay transicion con ese terminal,agrego
-               actual.getTerminalesTran().add(terminal);
-           }
-           int iTerminal = actual.getTerminalesTran().indexOf(terminal);//obtengo donde esta
-//         tabla.getSiguientes().get(numerado); //*veo siguientes arraylist del numerado  {4,2,3}
-           for(int iSig:tabla.getSiguientes().get(numerado)){ //obtengo estados de lista siguientes para meter
-               actual.getContenidosTran().get(iTerminal).add(iSig);
-           }
-           
-       }//
-       //ya llene terminales,transiciones del estado
-       //busca estados respecto a  contenido si existen en la listaEstado para nombrarlos en EstadosTran de mi actual
-       //for
-       // contenido del estado asignado aqui al inizializar objeto
-   }
+   //recibe raiz
+   public void HacerTabla(){
+       for(int h=0;h<listaEstados.size();h++){
+        EstadoA actual = listaEstados.get(h);       
+        for(int i=0;i<actual.getContenido().size();i++){//recorre el contenido del estado actual {1,3,5}
+
+            int numerado = actual.getContenido().get(i)-1; //1 - 1 ,obtengo numerado
+            if((numerado+1) == tabla.getNumerados()){
+                actual.setAceptacion(true);
+                continue;
+            }
+            String terminal = tabla.getTerminales().get(numerado);//terminal transicion de tab siguientes: a           
+            if(actual.getTerminalesTran().indexOf(terminal) == -1){//no hay transicion con ese terminal,agrego
+                actual.getTerminalesTran().add(terminal);
+                actual.getContenidosTran().add(new ArrayList<Integer>());
+            }
+            int iTerminal = actual.getTerminalesTran().indexOf(terminal);//obtengo posicion terminal 
+            for(int iSig:tabla.getSiguientes().get(numerado)){ //obtengo estados de lista siguientes para meter
+                actual.getContenidosTran().get(iTerminal).add(iSig);//agrego contenidoTran al estado en iTerminal
+            }
+
+        }//
+        //ya llene terminales y transiciones del estado  
+        //for ,nombrar estados del actua
+        for (int j = 0; j <actual.getTerminalesTran().size(); j++) {
+            //aux solo para mandarlo a existeEstado
+            EstadoA auxTran = new EstadoA(actual.getContenidosTran().get(j));
+            String obtenerName = existeEstado(auxTran);//obtengo el nombre,si no existe lo creo
+            actual.getEstadosTran().add(obtenerName);
+            System.out.println("nomb:"+actual.getNombre());
+        }
+        
+       }//fin h
+   }//hacerTabla
    
    /**
+    * se usa en HacerTabla
     * @param EstadoB:estado se berificara si existe,viene sin nombre
     */
     @SuppressWarnings({"BoxedValueEquality", "NumberEquality"})
@@ -80,19 +96,12 @@ public class TabTransiciones {
        return EstadoB.getNombre();
    }//BuscaEstado  
    
-//    //si esta en ultima pos y no lo encontro
-//                       if(k == actual.getContenido().size()-1){
-//                       //crea estado en listaEstados
-//                       EstadoA.numEstadoA++;
-//                       EstadoB.setNombre("S"+EstadoA.numEstadoA);
-//                       listaEstados.add(EstadoB);//guardo nuevo
-//                       return EstadoB.getNombre();
-//                       }
-   
-   /**
-    * Verifica los estados aceptacion en la listaEstados
-    */
-   public void verificarAceptacion(){//con indexOf
-       
-   }
+//   public void verificarAceptacion(){//con indexOf
+//       for (int i = 0; i < listaEstados.size(); i++) {
+//           for(int j=0;j<listaEstados.get(i).getContenido().size();j++){//rcorro contenido en busca de #
+//               if(listaEstados.get(i).getContenido().get(j) == tabla.getNumerados()){
+//               }
+//           }
+//       }
+//   }
 }
