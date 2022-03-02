@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author chana
  */
 public class TabTransiciones {
-    ArrayList<EstadoA> listaEstados = new ArrayList<>();
+    ArrayList<EstadoA> listaEstados = new ArrayList<>();//estados con sus transiciones
     TabSiguientes tabla;
    
     /**
@@ -56,7 +56,6 @@ public class TabTransiciones {
             EstadoA auxTran = new EstadoA(actual.getContenidosTran().get(j));
             String obtenerName = existeEstado(auxTran);//obtengo el nombre,si no existe lo creo
             actual.getEstadosTran().add(obtenerName);
-            System.out.println("nomb:"+actual.getNombre());
         }
         
        }//fin h
@@ -96,6 +95,8 @@ public class TabTransiciones {
        return EstadoB.getNombre();
    }//BuscaEstado  
    
+   
+   
 //   public void verificarAceptacion(){//con indexOf
 //       for (int i = 0; i < listaEstados.size(); i++) {
 //           for(int j=0;j<listaEstados.get(i).getContenido().size();j++){//rcorro contenido en busca de #
@@ -104,4 +105,12 @@ public class TabTransiciones {
 //           }
 //       }
 //   }
+
+    public ArrayList<EstadoA> getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(ArrayList<EstadoA> listaEstados) {
+        this.listaEstados = listaEstados;
+    }
 }
