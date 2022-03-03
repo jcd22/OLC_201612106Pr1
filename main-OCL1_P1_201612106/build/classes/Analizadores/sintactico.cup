@@ -115,7 +115,7 @@ EXP ::= concat:var0 EXP:var1 EXP:var2
      |  interrogacion:var0 EXP:var1
      {: M_Expresion m_expresion = new M_Expresion(var0,var1,null);  RESULT = m_expresion; :}
      |  cadena:var0
-     {: M_Expresion m_expresion = new M_Expresion(var0.substring(1,var0.length()-1));  RESULT = m_expresion; :}
+     {: M_Expresion m_expresion = new M_Expresion(var0); m_expresion.setEsCadena(true);  RESULT = m_expresion; :}
      |  llavea id:var0 llavec
      {: M_Expresion m_expresion = new M_Expresion(var0);  RESULT = m_expresion; :};
 

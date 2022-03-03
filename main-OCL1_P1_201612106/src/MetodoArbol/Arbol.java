@@ -229,8 +229,13 @@ public class Arbol {
             } else{// si es un terminal
                 raiz.setNumEstado(numEstados++);
                 numTerminales++;
-                dotArbol += raiz.getNumEstado()+"[shape=Mrecord,color=blue1,label=\"{ N |{"+numTerminales+"|<here>"+raiz.getNombre()+"|"+numTerminales+"}|"+numTerminales+"}\"];"+"\n";                
-                
+                //solo para generar el grafvis
+                if(raiz.esEsCadena()){
+                    String auxNombre = raiz.getNombre().substring(1,raiz.getNombre().length()-1);
+                    dotArbol += raiz.getNumEstado()+"[shape=Mrecord,color=blue1,label=\"{ N |{"+numTerminales+"|<here>"+auxNombre+"|"+numTerminales+"}|"+numTerminales+"}\"];"+"\n";
+                }else{
+                    dotArbol += raiz.getNumEstado()+"[shape=Mrecord,color=blue1,label=\"{ N |{"+numTerminales+"|<here>"+raiz.getNombre()+"|"+numTerminales+"}|"+numTerminales+"}\"];"+"\n";                
+                }
                 //primeros y utlimos
                 raiz.getPrimeros().add(numTerminales);
                 raiz.getUltimos().add(numTerminales);

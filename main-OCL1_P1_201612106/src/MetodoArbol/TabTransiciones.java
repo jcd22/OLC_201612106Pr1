@@ -75,7 +75,7 @@ public class TabTransiciones {
                    //compara 
                    if (EstadoB.getContenido().get(j) == actual.getContenido().get(k) ) {//compara uno por uno el contenido
                        //estadoB igual al actual
-                       if(j == EstadoB.getContenido().size()-1){return EstadoB.getNombre();}
+                       if(j == EstadoB.getContenido().size()-1){return actual.getNombre();}
                        break;
                    } else{ //no esta el numero
                         // esta en ultima pos y no lo encontro

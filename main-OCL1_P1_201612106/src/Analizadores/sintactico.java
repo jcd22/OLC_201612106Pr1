@@ -541,7 +541,7 @@ class CUP$sintactico$actions {
 		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
 		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
 		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
-		 M_Expresion m_expresion = new M_Expresion(var0.substring(1,var0.length()-1));  RESULT = m_expresion; 
+		 M_Expresion m_expresion = new M_Expresion(var0); m_expresion.setEsCadena(true);  RESULT = m_expresion; 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("EXP",14, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;

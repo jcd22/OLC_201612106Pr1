@@ -118,10 +118,13 @@ public class aplicacion extends javax.swing.JFrame {
                    arbol.GraficaArbol();
 //                 System.out.println(raiz.getPrimeros());
                    Arbol.numArbol++;
-                   
+                   //obj para tab siguientes
                    TabSiguientes tabSig = arbol.getTabla();//obtengo toda la tabla siguientes
-                   //se crea la tabla
+                   //se crea la tabla Trans
                    TabTransiciones tabTran = new TabTransiciones(raiz.getPrimeros(),tabSig);
+                   //obj para automata generado
+                   //Automata automata = new Automata(tabTran.getListaEstados());
+                   //automata.ValidarCadena("letra idd");
                     System.out.println("jfdj");
 
                 } catch (InterruptedException ex) {

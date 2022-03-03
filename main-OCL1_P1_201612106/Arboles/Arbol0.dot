@@ -1,12 +1,18 @@
 graph g{
 graph [pad="0.15", nodesep="0.15", ranksep="1"];
-0[shape=Mrecord,color=blue1,label="{ N |{1|<here>letra|1}|1}"];
-1[shape=Mrecord,color=blue1,label="{ N |{2|<here>idd|2}|2}"];
-2[shape=Mrecord,color=blue1,label="{ N |{[1]|<here>.|[2]}| _ }"];
-2--0;
-2--1;
-3[shape=Mrecord,color=blue1,label="{ N |{3|<here>#|3}|3}"];
-4[shape=Mrecord,color=blue1,label="{ N |{[1]|<here>.|[3]}| _ }"];
-4--2;
+0[shape=Mrecord,color=blue1,label="{ N |{1|<here>digito|1}|1}"];
+1[shape=Mrecord,color=blue1,label="{ N |{2|<here>.|2}|2}"];
+2[shape=Mrecord,color=blue1,label="{ N |{3|<here>digito|3}|3}"];
+3[shape=Mrecord,color=blue1,label="{ N |{[3]|<here>+|[3]}| _ }"];
+3--2;
+4[shape=Mrecord,color=blue1,label="{ N |{[2]|<here>.|[3]}| _ }"];
+4--1;
 4--3;
+5[shape=Mrecord,color=blue1,label="{ N |{[1]|<here>.|[3]}| _ }"];
+5--0;
+5--4;
+6[shape=Mrecord,color=blue1,label="{ N |{4|<here>#|4}|4}"];
+7[shape=Mrecord,color=blue1,label="{ N |{[1]|<here>.|[4]}| _ }"];
+7--5;
+7--6;
 }

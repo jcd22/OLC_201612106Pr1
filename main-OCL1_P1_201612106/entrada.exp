@@ -1,0 +1,15 @@
+{
+
+ CONJ: letra->a~z;
+ CONJ: digito->#,!,_;
+
+ ExpReg2-> .{digito}."."+{digito};
+ ExpReg1-> .{letra}{idd};
+ ExpReg3-> .{letra}*{idd};
+
+ %%
+%%
+
+dsasd:"rimerLexemaCokoa";
+
+}

@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class M_Expresion {
     String nombreEr;
+    boolean esCadena;
+    
     M_Expresion listaEr;
     String nombre;
     M_Expresion er_izq;
@@ -45,10 +47,18 @@ public class M_Expresion {
         this.anulable = false;
         this.primeros = new ArrayList<>();
         this.ultimos = new ArrayList<>();
+        boolean esCadena = false;
     }
+     //------------------------------------------
     
-   //------------------------------------------
-    
+    public boolean esEsCadena() {
+        return esCadena;    
+    }
+
+    public void setEsCadena(boolean esCadena) {
+        this.esCadena = esCadena;
+    }
+
     public String getNombreEr() {
         return nombreEr;
     }

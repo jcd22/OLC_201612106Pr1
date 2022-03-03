@@ -14,9 +14,15 @@ import java.util.ArrayList;
  */
 public class Automata {
     ArrayList<EstadoA> listaEstados;
-    
-    public Automata(ArrayList<EstadoA> listaEstados){
+    String nombreEr;
+    /**
+     * @param nombreEr: nombre er del automata
+     * @param listaEstados: la lista E de la TabTransiciones objeto
+     */
+    public Automata(String nombreEr,ArrayList<EstadoA> listaEstados){
+        this.nombreEr = nombreEr;
         this.listaEstados = listaEstados;
+        //lista conjuntos
     }
     
     public boolean ValidarCadena(String entrada){
@@ -30,7 +36,7 @@ public class Automata {
                   return false;
               }
           }
-          // indice en terminalestran auxEstado
+          // indice en terminalesTran auxEstado
           int icaracter = auxEstado.getTerminalesTran().indexOf(entrada.charAt(i));
           if(icaracter == -1){//caracter invalida,cadena invalida
               return false;
@@ -45,7 +51,7 @@ public class Automata {
     }
     
     public void graficarAutomata(){
-    
+        
     }
     
     public void Transicion(char caracter,String nomEstado){
