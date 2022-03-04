@@ -8,6 +8,8 @@ import Analizadores.M_Expresion;
 import Analizadores.lexico_j;
 import Analizadores.sintactico;
 import MetodoArbol.Arbol;
+import MetodoArbol.Automata;
+import MetodoArbol.EstadoA;
 import MetodoArbol.TabSiguientes;
 import MetodoArbol.TabTransiciones;
 import java.io.FileNotFoundException;
@@ -20,6 +22,7 @@ import java.util.Scanner;
 import analizadores.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -33,12 +36,38 @@ import javax.swing.UIManager;
  */
 public class Principal extends javax.swing.JFrame {
     sintactico sintactico;
+    ArrayList<Automata> listaAutomata = new ArrayList<>();
 
     /**
      * Creates new form Principal
      */
     public Principal() {      
         initComponents();
+    }
+    
+    public boolean ValidarCadena(String entrada,ArrayList<EstadoA> listaEstados){
+        int numEstado = 0;
+        for (int i = 0; i < entrada.length(); i++) {
+          EstadoA auxEstado = listaEstados.get(numEstado);//el estado actual
+          if(i == entrada.length()-1){//ultimo caracter entrada
+              if (auxEstado.getAceptacion() == true) {
+                  return true;
+              }else{
+                  return false;
+              }
+          }
+          // indice en terminalesTran auxEstado
+          int icaracter = auxEstado.getTerminalesTran().indexOf(entrada.charAt(i));
+          if(icaracter == -1){//caracter invalida,cadena invalida
+              return false;
+          }
+          else{//si existe caracter
+              System.out.println("transicion a:"+auxEstado.getEstadosTran().get(icaracter));
+              numEstado = icaracter;
+          } 
+
+        }//i
+        return false;
     }
 
     /**
@@ -67,6 +96,7 @@ public class Principal extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -141,6 +171,13 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel3.setText("Entrada    :");
 
+        jButton1.setText("Validar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,6 +216,9 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addComponent(btn_arbol, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -186,32 +226,34 @@ public class Principal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_transicion)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_automata, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addComponent(btn_automata, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 44, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_siguientes)
-                    .addComponent(btn_automata)
-                    .addComponent(btn_transicion)
-                    .addComponent(btn_abrir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_arbol, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_abrir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_arbol, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_siguientes)
+                        .addComponent(btn_automata)
+                        .addComponent(btn_transicion)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel1)
+                        .addGap(94, 94, 94)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
@@ -248,7 +290,7 @@ public class Principal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2))
@@ -351,9 +393,10 @@ public class Principal extends javax.swing.JFrame {
                    TabSiguientes tabSig = arbol.getTabla();//obtengo toda la tabla siguientes
                    //se crea la tabla Trans
                    TabTransiciones tabTran = new TabTransiciones(raiz.getPrimeros(),tabSig);
+                   //iguala a var global listaEstado ^^^
                    //obj para automata generado
                    //Automata automata = new Automata(sintactico.lista_ER.get(0).getNombre(),tabTran.getListaEstados());
-                   //graficar
+                   //graficar automa
                    //guardo en Lista Automatas aqui
                    //automata.ValidarCadena("letra idd");
                    Arbol.numArbol++;
@@ -374,6 +417,11 @@ public class Principal extends javax.swing.JFrame {
     private void btn_automataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_automataActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_automataActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,6 +470,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btn_siguiente;
     private javax.swing.JButton btn_siguientes;
     private javax.swing.JButton btn_transicion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -6,8 +6,30 @@ import java.util.ArrayList;
 parser code
 {:
     public ArrayList<M_Expresion> lista_ER = new ArrayList<M_Expresion>(); //para er completas
+    public ArrayList<Conjunto> lista_Conj = new ArrayList<>();
+    public ArrayList<Entrada> lista_Entr = new ArrayList<>();
+    Conjunto auxConj = new Conjunto(); //auxiliar conjunto para llenar NOT_VARIOS
 
-//--------MANEJO DE ERRORES SINTACTICOS----
+    public Conjunto agregarRango(String menor,String mayor){
+        Conjunto auxConj = new Conjunto();
+        try {
+            char car1 = menor.charAt(0);
+            int car_asc1 = car1;
+            char car2 = mayor.charAt(0);
+            int car_asc2 = car2;
+            for(int i =car_asc1;i<=car_asc2;i++){
+                char cha =(char)i;
+                String stri =String.valueOf(cha);
+                auxConj.getListCaracteres().add(stri);
+            }
+            
+
+       } catch (Exception e) {
+       }
+       return auxConj;
+    }
+
+    //----------MANEJO DE ERRORES SINTACTICOS--------------------------
     public ArrayList<M_Error> errores_s = new ArrayList<M_Error>(); 
 
     public void syntax_error(Symbol s){
@@ -31,12 +53,12 @@ parser code
 // DECLARACION  TERMINALES proyec1 ---------------------------
 terminal String conj,llavea,llavec,dospuntos,flechad,ptcoma,porcentajed;
 terminal String concat,or,asterisco,suma,interrogacion,guion,coma;
-terminal String entero,decimal,cadena,cadena2,id,simbolo;
+terminal String entero,decimal,cadena,cadena2,id,cualquiera; //simbolo
 
 // DECLARACION NO TERMINALES proyec1 --------------------------
 non terminal INICIO,OLC;
 non terminal CUER_OLC,SEC_TOKEN,CUER_OLC2,TOKEN,SEC_LEXEMA,LEXEMA,SEC_COMPARA,ENTRADA;
-non terminal NOTACION,NOT_RANGO,NOT_VARIOS,NOT_VARIOS2;
+non terminal Conjunto NOTACION,NOT_RANGO,NOT_VARIOS,NOT_VARIOS2;
 non terminal M_Expresion EXP;
 
 // PRESEDENCIA ----------------------------------------
@@ -60,29 +82,41 @@ CUER_OLC ::= SEC_TOKEN CUER_OLC2;
 SEC_TOKEN ::= SEC_TOKEN TOKEN
             | TOKEN;
 
-//TOKEN ::= conj dospuntos id flechad ptcoma;
+TOKEN ::= conj dospuntos id:var0 flechad NOTACION:var1 ptcoma {: Conjunto conj = var1; conj.setNombre(var0); lista_Conj.add(conj); :};
 
-TOKEN ::= conj dospuntos id flechad NOTACION ptcoma;
+NOTACION ::= NOT_RANGO:var0 {: RESULT = var0; :}
+          | NOT_VARIOS
+          {: 
+            if(auxConj.getListCaracteres().size() != 0){
+                auxConj.setNombre("");
+                Conjunto conj = auxConj;               
+                auxConj.getListCaracteres().clear();
+                RESULT = conj;
+            } else{} 
+          :};
 
-NOTACION ::= NOT_RANGO
-          | NOT_VARIOS;
+//falta: coloca todas las combinaciones posibles         
+NOT_RANGO ::= id:var0 guion id:var1 {: Conjunto conj = agregarRango(var0,var1); RESULT = conj; :} 
+           |  entero:var0 guion entero:var1 {: Conjunto conj = agregarRango(var0,var1); RESULT = conj; :}
+           // haciendo atajo,asumo viene solo es espacio en cadena
+           |  cadena:var0 guion cualquiera:var1 {: Conjunto conj = agregarRango(var0,var1); RESULT = conj; :} 
+           |  cualquiera:var0 guion cualquiera:var1 {: Conjunto conj = agregarRango(var0,var1); RESULT = conj; :};
 
-NOT_RANGO ::= id guion id
-           |  entero guion entero
-           |  cadena guion simbolo //haciendo atajo,asumo viene solo es espacio
-           |  simbolo guion simbolo;
-
-
-NOT_VARIOS ::= id coma NOT_VARIOS 
-            |  entero coma NOT_VARIOS //---haciendo atajo ,asumiendo siempre bienen numeros seguidos
-            |  simbolo coma NOT_VARIOS //---haciendo atajo ,asumiendo siempre bienen simbolos seguidos
-
+//falta: todas las combinaciones posibles
+NOT_VARIOS ::= id:var0 coma NOT_VARIOS 
+              {: auxConj.getListCaracteres().add(var0); :}
+            //---haciendo atajo ,asumiendo siempre bienen numeros seguidos
+            |  entero:var0 coma NOT_VARIOS
+              {: auxConj.getListCaracteres().add(var0); :}
+            //---haciendo atajo ,asumiendo siempre bienen simbolos seguidos
+            |  cualquiera:var0 coma NOT_VARIOS
+              {: auxConj.getListCaracteres().add(var0); :}
             |  NOT_VARIOS2; //puede ser aqui id ptcoma
      
 
-NOT_VARIOS2 ::= id
-            | entero
-            | simbolo;
+NOT_VARIOS2 ::= id:var0 {: auxConj.getListCaracteres().add(var0); :}
+            | entero:var0 {: auxConj.getListCaracteres().add(var0); :}
+            | cualquiera:var0 {: auxConj.getListCaracteres().add(var0); :} ;
 
 //---------------- CUER_OLC2 -----------------------------
 
@@ -124,4 +158,4 @@ EXP ::= concat:var0 EXP:var1 EXP:var2
 SEC_COMPARA ::= SEC_COMPARA ENTRADA
              | ENTRADA;
 
-ENTRADA ::= id dospuntos cadena ptcoma; 
+ENTRADA ::= id:var0 dospuntos cadena:var1 ptcoma {: Entrada entrada = new Entrada(var0,var1); lista_Entr.add(entrada); :}; 

@@ -56,17 +56,17 @@ public class sintactico extends java_cup.runtime.lr_parser {
     "\006\004\ufffc\026\ufffc\001\002\000\006\004\013\026\055" +
     "\001\002\000\004\007\014\001\002\000\004\026\015\001" +
     "\002\000\004\010\016\001\002\000\012\022\021\024\020" +
-    "\026\026\027\024\001\002\000\004\011\050\001\002\000" +
+    "\026\026\027\022\001\002\000\004\011\050\001\002\000" +
     "\004\020\046\001\002\000\010\011\uffef\020\044\021\037" +
-    "\001\002\000\004\011\ufffa\001\002\000\004\011\ufff1\001" +
-    "\002\000\010\011\uffee\020\042\021\035\001\002\000\004" +
+    "\001\002\000\010\011\uffee\020\042\021\035\001\002\000" +
+    "\004\011\ufffa\001\002\000\004\011\ufff1\001\002\000\004" +
     "\011\ufff9\001\002\000\010\011\ufff0\020\027\021\030\001" +
-    "\002\000\004\026\041\001\002\000\010\022\031\026\032" +
-    "\027\034\001\002\000\006\011\uffef\021\037\001\002\000" +
-    "\006\011\ufff0\021\030\001\002\000\004\011\ufff4\001\002" +
-    "\000\006\011\uffee\021\035\001\002\000\010\022\031\026" +
-    "\032\027\034\001\002\000\004\011\ufff2\001\002\000\010" +
-    "\022\031\026\032\027\034\001\002\000\004\011\ufff3\001" +
+    "\002\000\004\026\041\001\002\000\010\022\031\026\033" +
+    "\027\032\001\002\000\006\011\uffef\021\037\001\002\000" +
+    "\006\011\uffee\021\035\001\002\000\006\011\ufff0\021\030" +
+    "\001\002\000\004\011\ufff4\001\002\000\010\022\031\026" +
+    "\033\027\032\001\002\000\004\011\ufff2\001\002\000\010" +
+    "\022\031\026\033\027\032\001\002\000\004\011\ufff3\001" +
     "\002\000\004\011\ufff8\001\002\000\004\027\043\001\002" +
     "\000\004\011\ufff5\001\002\000\004\022\045\001\002\000" +
     "\004\011\ufff7\001\002\000\004\027\047\001\002\000\004" +
@@ -116,13 +116,13 @@ public class sintactico extends java_cup.runtime.lr_parser {
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\012\006\051\007\050\010\053\011\052\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\012\014\016\015\021\016\024\017\022\001\001\000\002" +
+    "\012\014\016\015\022\016\024\017\023\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\016\032\017" +
-    "\022\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\016\035\017\022\001" +
-    "\001\000\002\001\001\000\006\016\037\017\022\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\016\033\017" +
+    "\023\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\006\016\035\017\023\001" +
+    "\001\000\002\001\001\000\006\016\037\017\023\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
@@ -178,8 +178,30 @@ public class sintactico extends java_cup.runtime.lr_parser {
 
 
     public ArrayList<M_Expresion> lista_ER = new ArrayList<M_Expresion>(); //para er completas
+    public ArrayList<Conjunto> lista_Conj = new ArrayList<>();
+    public ArrayList<Entrada> lista_Entr = new ArrayList<>();
+    Conjunto auxConj = new Conjunto(); //auxiliar conjunto para llenar NOT_VARIOS
 
-//--------MANEJO DE ERRORES SINTACTICOS----
+    public Conjunto agregarRango(String menor,String mayor){
+        Conjunto auxConj = new Conjunto();
+        try {
+            char car1 = menor.charAt(0);
+            int car_asc1 = car1;
+            char car2 = mayor.charAt(0);
+            int car_asc2 = car2;
+            for(int i =car_asc1;i<=car_asc2;i++){
+                char cha =(char)i;
+                String stri =String.valueOf(cha);
+                auxConj.getListCaracteres().add(stri);
+            }
+            
+
+       } catch (Exception e) {
+       }
+       return auxConj;
+    }
+
+    //----------MANEJO DE ERRORES SINTACTICOS--------------------------
     public ArrayList<M_Error> errores_s = new ArrayList<M_Error>(); 
 
     public void syntax_error(Symbol s){
@@ -284,7 +306,13 @@ class CUP$sintactico$actions {
           case 6: // TOKEN ::= conj dospuntos id flechad NOTACION ptcoma 
             {
               Object RESULT =null;
-
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)).value;
+		int var1left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-1)).left;
+		int var1right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-1)).right;
+		Conjunto var1 = (Conjunto)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-1)).value;
+		 Conjunto conj = var1; conj.setNombre(var0); lista_Conj.add(conj); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("TOKEN",5, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-5)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -292,8 +320,11 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // NOTACION ::= NOT_RANGO 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		Conjunto var0 = (Conjunto)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 RESULT = var0; 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOTACION",10, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -301,8 +332,15 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // NOTACION ::= NOT_VARIOS 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		 
+            if(auxConj.getListCaracteres().size() != 0){
+                auxConj.setNombre("");
+                Conjunto conj = auxConj;               
+                auxConj.getListCaracteres().clear();
+                RESULT = conj;
+            } else{} 
+          
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOTACION",10, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -310,8 +348,14 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // NOT_RANGO ::= id guion id 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		int var1left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var1right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var1 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 Conjunto conj = agregarRango(var0,var1); RESULT = conj; 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_RANGO",11, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -319,26 +363,44 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // NOT_RANGO ::= entero guion entero 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		int var1left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var1right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var1 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 Conjunto conj = agregarRango(var0,var1); RESULT = conj; 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_RANGO",11, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // NOT_RANGO ::= cadena guion simbolo 
+          case 11: // NOT_RANGO ::= cadena guion cualquiera 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		int var1left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var1right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var1 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 Conjunto conj = agregarRango(var0,var1); RESULT = conj; 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_RANGO",11, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // NOT_RANGO ::= simbolo guion simbolo 
+          case 12: // NOT_RANGO ::= cualquiera guion cualquiera 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		int var1left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var1right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var1 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 Conjunto conj = agregarRango(var0,var1); RESULT = conj; 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_RANGO",11, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -346,8 +408,11 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // NOT_VARIOS ::= id coma NOT_VARIOS 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		 auxConj.getListCaracteres().add(var0); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS",12, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -355,17 +420,23 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // NOT_VARIOS ::= entero coma NOT_VARIOS 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		 auxConj.getListCaracteres().add(var0); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS",12, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // NOT_VARIOS ::= simbolo coma NOT_VARIOS 
+          case 15: // NOT_VARIOS ::= cualquiera coma NOT_VARIOS 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		 auxConj.getListCaracteres().add(var0); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS",12, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -373,7 +444,7 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // NOT_VARIOS ::= NOT_VARIOS2 
             {
-              Object RESULT =null;
+              Conjunto RESULT =null;
 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS",12, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
@@ -382,8 +453,11 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // NOT_VARIOS2 ::= id 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 auxConj.getListCaracteres().add(var0); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS2",13, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -391,17 +465,23 @@ class CUP$sintactico$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // NOT_VARIOS2 ::= entero 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 auxConj.getListCaracteres().add(var0); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS2",13, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // NOT_VARIOS2 ::= simbolo 
+          case 19: // NOT_VARIOS2 ::= cualquiera 
             {
-              Object RESULT =null;
-
+              Conjunto RESULT =null;
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.peek()).value;
+		 auxConj.getListCaracteres().add(var0); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("NOT_VARIOS2",13, ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;
@@ -580,7 +660,13 @@ class CUP$sintactico$actions {
           case 33: // ENTRADA ::= id dospuntos cadena ptcoma 
             {
               Object RESULT =null;
-
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)).value;
+		int var1left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-1)).left;
+		int var1right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-1)).right;
+		String var1 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-1)).value;
+		 Entrada entrada = new Entrada(var0,var1); lista_Entr.add(entrada); 
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("ENTRADA",9, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-3)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;

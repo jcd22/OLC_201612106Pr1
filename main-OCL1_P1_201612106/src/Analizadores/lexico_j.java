@@ -38,12 +38,12 @@ public class lexico_j implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\1\1\7\1\36\1\36\1\1\22\0\1\5\1\16\1\6"+
-    "\2\0\1\30\1\0\1\11\2\0\1\31\1\32\1\35\1\26\1\3"+
-    "\1\0\12\2\1\25\1\27\1\15\1\0\1\17\1\33\1\0\2\13"+
-    "\1\20\6\13\1\22\3\13\1\12\1\21\13\13\1\0\1\10\2\0"+
-    "\1\14\1\0\2\13\1\20\6\13\1\22\3\13\1\12\1\21\13\13"+
-    "\1\23\1\4\1\24\1\34\6\0\1\36\u1fa2\0\1\36\1\36\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\1\1\7\1\40\1\40\1\1\22\0\1\5\1\16\1\6"+
+    "\2\21\1\32\1\21\1\11\2\21\1\33\1\34\1\37\1\30\1\3"+
+    "\1\20\12\2\1\27\1\31\1\15\1\21\1\17\1\35\1\21\2\13"+
+    "\1\22\6\13\1\24\3\13\1\12\1\23\13\13\1\21\1\10\2\21"+
+    "\1\14\1\21\2\13\1\22\6\13\1\24\3\13\1\12\1\23\13\13"+
+    "\1\25\1\4\1\26\1\36\6\0\1\40\u1fa2\0\1\40\1\40\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -56,14 +56,14 @@ public class lexico_j implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\5\1\1\1\6"+
-    "\1\1\1\7\1\1\1\7\1\10\1\11\1\12\1\1"+
-    "\1\13\1\1\1\14\1\15\1\16\1\17\1\20\2\0"+
-    "\1\21\3\0\1\22\1\0\1\7\1\23\1\24\1\25"+
-    "\1\21\1\0\1\7\1\2\1\26";
+    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
+    "\2\6\1\10\2\6\1\10\1\11\1\12\1\13\1\6"+
+    "\1\14\1\6\1\15\1\16\1\17\1\20\1\21\2\0"+
+    "\1\22\3\0\1\23\2\0\1\10\1\24\1\25\1\26"+
+    "\1\22\1\0\1\27\1\10\1\30\1\31";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[40];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -88,14 +88,15 @@ public class lexico_j implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\37\0\76\0\135\0\37\0\37\0\174\0\37"+
-    "\0\233\0\272\0\331\0\370\0\37\0\37\0\37\0\u0117"+
-    "\0\37\0\u0136\0\37\0\37\0\37\0\37\0\37\0\u0155"+
-    "\0\174\0\37\0\u0174\0\233\0\u0193\0\233\0\u01b2\0\u01d1"+
-    "\0\37\0\37\0\u0155\0\174\0\u01f0\0\u020f\0\37\0\272";
+    "\0\0\0\41\0\102\0\143\0\41\0\41\0\204\0\41"+
+    "\0\41\0\245\0\306\0\347\0\u0108\0\u0129\0\41\0\41"+
+    "\0\41\0\u014a\0\41\0\u016b\0\41\0\41\0\41\0\41"+
+    "\0\41\0\u018c\0\204\0\41\0\u01ad\0\245\0\u01ce\0\245"+
+    "\0\u01ef\0\u0210\0\u0231\0\41\0\41\0\u018c\0\204\0\u0252"+
+    "\0\41\0\u0273\0\41\0\306";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[40];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -119,21 +120,22 @@ public class lexico_j implements java_cup.runtime.Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\4\1\5\1\6\1\3\1\7\1\10"+
-    "\1\2\1\11\2\12\1\2\1\13\2\2\1\14\2\12"+
-    "\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24"+
-    "\1\25\1\26\1\27\41\0\1\3\3\0\1\3\33\0"+
-    "\1\4\1\30\33\0\6\31\1\32\1\0\1\33\26\31"+
-    "\6\34\2\0\1\35\1\36\25\34\2\0\1\12\7\0"+
-    "\3\12\3\0\3\12\32\0\1\37\22\0\1\12\7\0"+
-    "\3\12\3\0\1\12\1\40\1\12\33\0\1\41\47\0"+
-    "\1\42\10\0\1\43\1\0\2\43\31\0\6\31\1\44"+
-    "\1\0\1\33\26\31\7\34\1\0\1\35\1\36\25\34"+
-    "\16\37\1\45\1\0\17\37\2\0\1\12\7\0\1\46"+
-    "\2\12\3\0\3\12\33\0\1\47\21\0\1\12\7\0"+
-    "\3\12\3\0\2\12\1\50\14\0";
+    "\1\11\1\12\2\13\1\11\1\14\2\11\1\15\1\11"+
+    "\1\16\2\13\1\17\1\20\1\21\1\22\1\23\1\24"+
+    "\1\25\1\26\1\27\1\30\1\31\43\0\1\3\3\0"+
+    "\1\3\35\0\1\4\1\32\35\0\6\33\1\34\1\0"+
+    "\1\35\30\33\6\36\2\0\1\37\1\40\27\36\2\0"+
+    "\1\13\7\0\3\13\5\0\3\13\32\0\1\41\42\0"+
+    "\1\42\22\0\1\13\7\0\3\13\5\0\1\13\1\43"+
+    "\1\13\33\0\1\44\53\0\1\45\10\0\1\46\1\0"+
+    "\2\46\33\0\6\33\1\47\1\0\1\35\30\33\7\36"+
+    "\1\0\1\37\1\40\27\36\16\41\1\50\1\0\21\41"+
+    "\7\42\1\51\31\42\2\0\1\13\7\0\1\52\2\13"+
+    "\5\0\3\13\33\0\1\53\23\0\1\13\7\0\3\13"+
+    "\5\0\2\13\1\54\14\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[558];
+    int [] result = new int[660];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -171,12 +173,13 @@ public class lexico_j implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\2\11\1\1\1\11\4\1\3\11"+
+    "\1\0\1\11\2\1\2\11\1\1\2\11\5\1\3\11"+
     "\1\1\1\11\1\1\5\11\2\0\1\11\3\0\1\1"+
-    "\1\0\1\1\2\11\2\1\1\0\1\1\1\11\1\1";
+    "\2\0\1\1\2\11\2\1\1\0\1\11\1\1\1\11"+
+    "\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[40];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -641,128 +644,143 @@ public class lexico_j implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { String caracter = yytext();
-    char car = caracter.charAt(0);
-    int car_asc = car;
+            { //   String caracter = yytext();
+ //   char car = caracter.charAt(0);
+ //   int car_asc = car;
     //33,35-38,40,41,45,47,60-62,64,91,93-95,96,
 
-    if(car_asc==33 ||(car_asc>=35 && car_asc<=38) || car_asc==40 || car_asc==41 || car_asc==45 || car_asc==47 ||(car_asc>=60 && car_asc<=62) || car_asc==64 || car_asc==91 ||(car_asc>=93 && car_asc<=95) || car_asc==96){
-                System.out.println("caracter especial "+yytext());
-                return new Symbol(sym.simbolo,yyline,yychar,yytext()); //puedo enviar el car_asc de una
-        }else{
+ //   if(car_asc==33 ||(car_asc>=35 && car_asc<=38) || car_asc==40 || car_asc==41 || car_asc==45 || car_asc==47 ||(car_asc>=60 && car_asc<=62) || car_asc==64 || car_asc==91 ||(car_asc>=93 && car_asc<=95) || car_asc==96){
+       //         System.out.println("caracter especial "+yytext());
+       //         return new Symbol(sym.simbolo,yyline,yychar,yytext()); //puedo enviar el car_asc de una
+       // }else{
             
             System.out.println("Error Léxico--: "+yytext()+", en la linea: "+yyline+", en la columna: "+yychar);
             M_Error er_l = new M_Error("Lexico",yytext(),"El analizador lex no esperaba: "+yytext(),yyline,yychar);
             errores_l.add(er_l);
-        }
+       // }
             } 
             // fall through
-          case 23: break;
+          case 26: break;
           case 2: 
             { 
             } 
             // fall through
-          case 24: break;
+          case 27: break;
           case 3: 
             { return new Symbol(sym.entero,yyline,yychar,yytext());
             } 
             // fall through
-          case 25: break;
+          case 28: break;
           case 4: 
             { return new Symbol(sym.concat,yyline,yychar,yytext());
             } 
             // fall through
-          case 26: break;
+          case 29: break;
           case 5: 
             { return new Symbol(sym.or,yyline,yychar,yytext());
             } 
             // fall through
-          case 27: break;
-          case 6: 
-            { yychar=1;
-            } 
-            // fall through
-          case 28: break;
-          case 7: 
-            { return new Symbol(sym.id,yyline,yychar,yytext());
-            } 
-            // fall through
-          case 29: break;
-          case 8: 
-            { return new Symbol(sym.llavea,yyline,yychar,yytext());
-            } 
-            // fall through
           case 30: break;
-          case 9: 
-            { return new Symbol(sym.llavec,yyline,yychar,yytext());
+          case 6: 
+            { return new Symbol(sym.cualquiera,yyline,yychar,yytext());
             } 
             // fall through
           case 31: break;
-          case 10: 
-            { return new Symbol(sym.dospuntos,yyline,yychar,yytext());
+          case 7: 
+            { yychar=1;
             } 
             // fall through
           case 32: break;
-          case 11: 
-            { return new Symbol(sym.ptcoma,yyline,yychar,yytext());
+          case 8: 
+            { return new Symbol(sym.id,yyline,yychar,yytext());
             } 
             // fall through
           case 33: break;
-          case 12: 
-            { return new Symbol(sym.asterisco,yyline,yychar,yytext());
+          case 9: 
+            { return new Symbol(sym.llavea,yyline,yychar,yytext());
             } 
             // fall through
           case 34: break;
-          case 13: 
-            { return new Symbol(sym.suma,yyline,yychar,yytext());
+          case 10: 
+            { return new Symbol(sym.llavec,yyline,yychar,yytext());
             } 
             // fall through
           case 35: break;
-          case 14: 
-            { return new Symbol(sym.interrogacion,yyline,yychar,yytext());
+          case 11: 
+            { return new Symbol(sym.dospuntos,yyline,yychar,yytext());
             } 
             // fall through
           case 36: break;
-          case 15: 
-            { return new Symbol(sym.guion,yyline,yychar,yytext());
+          case 12: 
+            { return new Symbol(sym.ptcoma,yyline,yychar,yytext());
             } 
             // fall through
           case 37: break;
-          case 16: 
-            { return new Symbol(sym.coma,yyline,yychar,yytext());
+          case 13: 
+            { return new Symbol(sym.asterisco,yyline,yychar,yytext());
             } 
             // fall through
           case 38: break;
-          case 17: 
-            { return new Symbol(sym.cadena,yyline,yychar,yytext());
+          case 14: 
+            { return new Symbol(sym.suma,yyline,yychar,yytext());
             } 
             // fall through
           case 39: break;
-          case 18: 
-            { return new Symbol(sym.cadena2,yyline,yychar,yytext());
+          case 15: 
+            { return new Symbol(sym.interrogacion,yyline,yychar,yytext());
             } 
             // fall through
           case 40: break;
-          case 19: 
-            { return new Symbol(sym.flechad,yyline,yychar,yytext());
+          case 16: 
+            { return new Symbol(sym.guion,yyline,yychar,yytext());
             } 
             // fall through
           case 41: break;
-          case 20: 
-            { return new Symbol(sym.porcentajed,yyline,yychar,yytext());
+          case 17: 
+            { return new Symbol(sym.coma,yyline,yychar,yytext());
             } 
             // fall through
           case 42: break;
-          case 21: 
-            { return new Symbol(sym.decimal,yyline,yychar,yytext());
+          case 18: 
+            { return new Symbol(sym.cadena,yyline,yychar,yytext());
             } 
             // fall through
           case 43: break;
-          case 22: 
-            { return new Symbol(sym.conj,yyline,yychar,yytext());
+          case 19: 
+            { return new Symbol(sym.cadena2,yyline,yychar,yytext());
             } 
             // fall through
           case 44: break;
+          case 20: 
+            { return new Symbol(sym.flechad,yyline,yychar,yytext());
+            } 
+            // fall through
+          case 45: break;
+          case 21: 
+            { return new Symbol(sym.porcentajed,yyline,yychar,yytext());
+            } 
+            // fall through
+          case 46: break;
+          case 22: 
+            { return new Symbol(sym.decimal,yyline,yychar,yytext());
+            } 
+            // fall through
+          case 47: break;
+          case 23: 
+            { System.out.println("Se ignoro Coment 1 linea");
+            } 
+            // fall through
+          case 48: break;
+          case 24: 
+            { System.out.println("Se ignoro Coment grande");
+            } 
+            // fall through
+          case 49: break;
+          case 25: 
+            { return new Symbol(sym.conj,yyline,yychar,yytext());
+            } 
+            // fall through
+          case 50: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

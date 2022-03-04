@@ -18,9 +18,9 @@ public class sym {
   public static final int cadena2 = 19;
   public static final int guion = 14;
   public static final int ptcoma = 7;
+  public static final int cualquiera = 21;
   public static final int porcentajed = 8;
   public static final int EOF = 0;
-  public static final int simbolo = 21;
   public static final int id = 20;
   public static final int error = 1;
   public static final int entero = 16;
@@ -52,7 +52,7 @@ public class sym {
   "cadena",
   "cadena2",
   "id",
-  "simbolo"
+  "cualquiera"
   };
 }
 

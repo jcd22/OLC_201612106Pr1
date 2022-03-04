@@ -25,31 +25,6 @@ public class Automata {
         //lista conjuntos
     }
     
-    public boolean ValidarCadena(String entrada){
-        int numEstado = 0;
-        for (int i = 0; i < entrada.length(); i++) {
-          EstadoA auxEstado = listaEstados.get(numEstado);//el estado actual
-          if(i == entrada.length()-1){//ultimo caracter entrada
-              if (auxEstado.getAceptacion() == true) {
-                  return true;
-              }else{
-                  return false;
-              }
-          }
-          // indice en terminalesTran auxEstado
-          int icaracter = auxEstado.getTerminalesTran().indexOf(entrada.charAt(i));
-          if(icaracter == -1){//caracter invalida,cadena invalida
-              return false;
-          }
-          else{//si existe caracter
-              System.out.println("transicion a:"+auxEstado.getEstadosTran().get(icaracter));
-              numEstado = icaracter;
-          } 
-          
-        }//i
-        return false;
-    }
-    
     public void graficarAutomata(){
         
     }

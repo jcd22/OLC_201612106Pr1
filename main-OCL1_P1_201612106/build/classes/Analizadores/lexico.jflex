@@ -31,16 +31,16 @@ import java.util.ArrayList;
 
 
 //EXPRESIONES REGULARES
-
+//[ \t\r\n\f]
 BLANCOS=[ \r\t]+       
 D=[0-9]+                
 DD=[0-9]+("."[  |0-9]+)?       
 CADENA = [\"]([^\"\n]|(\\\")|(\\\')|(\\n))*[\"]      //agregado: \' , \n 
 CADENA2 = [\']([^\"\n]|(\\\")|(\\\')|(\\n))*[\']     //agregado: \' , \n
 ID=[A-Za-z]+["_"0-9A-Za-z]*
-
 COMENT_M = "<!" [^"!>"]* "!>"
-//COMENT_L = "//" [^\n]* [\n]
+COMENT_L = "//" [^\n]* [\n]
+CUALQUIERA = [\x20-\x7D] //<--
 
 %%
 
@@ -81,28 +81,27 @@ COMENT_M = "<!" [^"!>"]* "!>"
 {CADENA}	      {return new Symbol(sym.cadena,yyline,yychar,yytext());}
 {CADENA2}	      {return new Symbol(sym.cadena2,yyline,yychar,yytext());}
 {ID}		      {return new Symbol(sym.id,yyline,yychar,yytext());}
-{COMENT_M}            {}
-
+{COMENT_M}            {System.out.println("Se ignoro Coment grande");}
+{COMENT_L}            {System.out.println("Se ignoro Coment 1 linea");}
+{CUALQUIERA}          {return new Symbol(sym.cualquiera,yyline,yychar,yytext());}//<--
 
 //ERRORES LEXICOS , . -> cualquier otra cosa venga 
 . {
    
-    String caracter = yytext();
-    char car = caracter.charAt(0);
-    int car_asc = car;
+ //   String caracter = yytext();
+ //   char car = caracter.charAt(0);
+ //   int car_asc = car;
     //33,35-38,40,41,45,47,60-62,64,91,93-95,96,
 
-    if(car_asc==33 ||(car_asc>=35 && car_asc<=38) || car_asc==40 || car_asc==41 || car_asc==45 || car_asc==47 ||(car_asc>=60 && car_asc<=62) || car_asc==64 || car_asc==91 ||(car_asc>=93 && car_asc<=95) || car_asc==96){
-                System.out.println("caracter especial "+yytext());
-                return new Symbol(sym.simbolo,yyline,yychar,yytext()); //puedo enviar el car_asc de una
-        }else{
+ //   if(car_asc==33 ||(car_asc>=35 && car_asc<=38) || car_asc==40 || car_asc==41 || car_asc==45 || car_asc==47 ||(car_asc>=60 && car_asc<=62) || car_asc==64 || car_asc==91 ||(car_asc>=93 && car_asc<=95) || car_asc==96){
+       //         System.out.println("caracter especial "+yytext());
+       //         return new Symbol(sym.simbolo,yyline,yychar,yytext()); //puedo enviar el car_asc de una
+       // }else{
             
             System.out.println("Error Léxico--: "+yytext()+", en la linea: "+yyline+", en la columna: "+yychar);
             M_Error er_l = new M_Error("Lexico",yytext(),"El analizador lex no esperaba: "+yytext(),yyline,yychar);
             errores_l.add(er_l);
-        }
+       // }
    
  }
 
-
-//FALTA: manejo comentarios una linea
