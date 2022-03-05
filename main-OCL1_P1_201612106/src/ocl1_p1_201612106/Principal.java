@@ -5,8 +5,10 @@
  */
 package ocl1_p1_201612106;
 import Analizadores.M_Expresion;
+import Analizadores.Entrada;
 import Analizadores.lexico_j;
 import Analizadores.sintactico;
+import Analizadores.Conjunto;
 import MetodoArbol.Arbol;
 import MetodoArbol.Automata;
 import MetodoArbol.EstadoA;
@@ -37,6 +39,10 @@ import javax.swing.UIManager;
 public class Principal extends javax.swing.JFrame {
     sintactico sintactico;
     ArrayList<Automata> listaAutomata = new ArrayList<>();
+    /**
+     * es global
+     */
+    ArrayList<Conjunto> listaConjuntos;
 
     /**
      * Creates new form Principal
@@ -45,6 +51,9 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
     }
     
+    /**
+     *@param:listaEstados:estados del automata con sus transiciones,el automata es seleccionado de listaAutomatas
+     */
     public boolean ValidarCadena(String entrada,ArrayList<EstadoA> listaEstados){
         int numEstado = 0;
         for (int i = 0; i < entrada.length(); i++) {
@@ -67,6 +76,93 @@ public class Principal extends javax.swing.JFrame {
           } 
 
         }//i
+        return false;
+    }
+    
+    public boolean Validar2(Entrada entrada){
+     try {
+        listaConjuntos = sintactico.lista_Conj;//preparo la lista conjuntos venida del Parser
+        Automata automataUsar = null;
+        for (int i = 0; i < listaAutomata.size(); i++) {
+            if(entrada.getNombreEr().equals(listaAutomata.get(i).getNombreEr())){//encuentra a q automata se usara
+                automataUsar = listaAutomata.get(i);
+                break;
+            }else{
+                System.out.println("NO se encontro Er");
+                return false;
+            }
+         }//busca auto
+        //estado inicial
+        EstadoA estadoActual = automataUsar.getListaEstados().get(0);
+         for (int h = 0; h < entrada.getCadena().length(); h++) {//recorro entrada string
+            for (int i = 0; i <estadoActual.getTerminalesTran().size(); i++) {// para transiciones estadoActual             
+                //IF 1
+                if(String.valueOf(estadoActual.getTerminalesTran().get(i).charAt(0)).equals("\"")){ // si es cadena
+                    boolean flagEncontroCad = false;
+                //comprobare si es la cadena valida
+                    for (int k = 1; k < estadoActual.getTerminalesTran().get(i).length()-1; k++) {//recorre cadena del term transicion
+                        if (entrada.getCadena().charAt(h) == estadoActual.getTerminalesTran().get(i).charAt(k)) {//iguales con entrada
+                            if(k == estadoActual.getTerminalesTran().get(i).length()-2){//llega al final y es valida
+                                //indice del automata a ir
+                                int inuevo = automataUsar.getListaEstados().indexOf(estadoActual.getEstadosTran().get(i));
+                                //actual igual al nuevo automata
+                                estadoActual = automataUsar.getListaEstados().get(inuevo);
+                                h = h+estadoActual.getTerminalesTran().get(i).length()-3;//empizo analizar desde aqui la cadena
+                                flagEncontroCad = true;
+                            }
+                        }else{ // no es igual a la cadena
+                            break;
+                        }
+                    }//k
+                    if(flagEncontroCad == true){ //sale for i ,encontro cadena
+                        flagEncontroCad=false; break;
+                    }else{//no encontro cadena
+                        continue;
+                    }
+                }//if cadena
+                else{//else no cadena //IF 2
+                    boolean banderaEncontro = false;
+                    for (int j = 0; j < listaConjuntos.size(); j++) {// para contenido listaConjuntos
+                        //el terminal tran actual esta en la lista de conjuntos
+                        if (estadoActual.getTerminalesTran().get(i).indexOf(listaConjuntos.get(j).getNombre()) != -1) {
+                            //recorre caracteres validos del conjunto actual
+                            for(int g =0;g<listaConjuntos.get(j).getListCaracteres().size();g++){
+                                //caracter de Entrada igual a un caracter de conjunto de listaConj
+                                if (String.valueOf(entrada.getCadena().charAt(h)).equals(listaConjuntos.get(j).getListCaracteres().get(g) )) {
+                                    banderaEncontro = true;
+                                    break;
+                                }else{ //no es un carcter igual
+                                }
+                            }//g
+                            
+                        }
+                        if(banderaEncontro){
+                            //indice del automata a ir
+                                int inuevo = automataUsar.getListaEstados().indexOf(estadoActual.getEstadosTran().get(i));
+                                //actual igual al nuevo automata
+                                estadoActual = automataUsar.getListaEstados().get(inuevo);
+                                //h = h+estadoActual.getTerminalesTran().get(i).length()-3;//empizo analizar desde aqui la cadena
+                                break;
+                                //flagEncontroCad = true;
+                        }else{
+                            
+                        }
+                    }//j                
+                    if(banderaEncontro){//paso al siguiente caracter de entrada
+                        banderaEncontro = false;
+                        break;
+                    }else{
+                        return false; //el caracter no esta definido ni es cadena
+                    }
+                }//no cadena
+
+            }//i
+     }//h
+        return false;
+         
+         
+         } catch (Exception e) {
+        }
         return false;
     }
 
@@ -421,6 +517,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
+        ValidarCadena(entrada, listaEstados);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -21,8 +21,8 @@ public class Automata {
      */
     public Automata(String nombreEr,ArrayList<EstadoA> listaEstados){
         this.nombreEr = nombreEr;
-        this.listaEstados = listaEstados;
-        //lista conjuntos
+        this.listaEstados = listaEstados;//estados con transiciones
+       
     }
     
     public void graficarAutomata(){
@@ -32,4 +32,22 @@ public class Automata {
     public void Transicion(char caracter,String nomEstado){
         
     }
+
+    public ArrayList<EstadoA> getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(ArrayList<EstadoA> listaEstados) {
+        this.listaEstados = listaEstados;
+    }
+
+    public String getNombreEr() {
+        return nombreEr;
+    }
+
+    public void setNombreEr(String nombreEr) {
+        this.nombreEr = nombreEr;
+    }
+    
+    
 }
