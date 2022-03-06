@@ -43,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
      * es global
      */
     ArrayList<Conjunto> listaConjuntos;
-
+    
     /**
      * Creates new form Principal
      */
@@ -504,7 +504,8 @@ public class Principal extends javax.swing.JFrame {
                    //se crea la tabla Trans
                    TabTransiciones tabTran = new TabTransiciones(raiz.getPrimeros(),tabSig);
                    tabTran.GraficarTabla();
-                   //iguala a var global listaEstado ^^^
+                   
+                   //iguala a var global listaEstado ^^^ <--x
                    //obj para automata generado
                    //Automata automata = new Automata(sintactico.lista_ER.get(0).getNombre(),tabTran.getListaEstados());
                    //graficar automa
