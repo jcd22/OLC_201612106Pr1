@@ -506,9 +506,10 @@ public class Principal extends javax.swing.JFrame {
                    tabTran.GraficarTabla();
                    
                    //iguala a var global listaEstado ^^^ <--x
-                   //obj para automata generado
-                   //Automata automata = new Automata(sintactico.lista_ER.get(0).getNombre(),tabTran.getListaEstados());
+                   //obj para automata generado el 0 substity por i
+                   Automata automata = new Automata(sintactico.lista_ER.get(0).getNombre(),tabTran.getListaEstados());
                    //graficar automa
+                   automata.graficarAutomata();
                    //guardo en Lista Automatas aqui
                    //automata.ValidarCadena("letra idd");
                    Arbol.numArbol++;
