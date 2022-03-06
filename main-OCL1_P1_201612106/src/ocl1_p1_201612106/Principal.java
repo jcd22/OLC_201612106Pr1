@@ -83,6 +83,7 @@ public class Principal extends javax.swing.JFrame {
      try {
         listaConjuntos = sintactico.lista_Conj;//preparo la lista conjuntos venida del Parser
         Automata automataUsar = null;
+        //busca automata
         for (int i = 0; i < listaAutomata.size(); i++) {
             if(entrada.getNombreEr().equals(listaAutomata.get(i).getNombreEr())){//encuentra a q automata se usara
                 automataUsar = listaAutomata.get(i);
@@ -103,6 +104,11 @@ public class Principal extends javax.swing.JFrame {
                     for (int k = 1; k < estadoActual.getTerminalesTran().get(i).length()-1; k++) {//recorre cadena del term transicion
                         if (entrada.getCadena().charAt(h) == estadoActual.getTerminalesTran().get(i).charAt(k)) {//iguales con entrada
                             if(k == estadoActual.getTerminalesTran().get(i).length()-2){//llega al final y es valida
+                                if (h == entrada.getCadena().length()-1) {
+                                    if (estadoActual.getAceptacion() == true) {
+                                        return true;
+                                    }else{return false;}
+                                }
                                 //indice del automata a ir
                                 int inuevo = automataUsar.getListaEstados().indexOf(estadoActual.getEstadosTran().get(i));
                                 //actual igual al nuevo automata
@@ -129,6 +135,12 @@ public class Principal extends javax.swing.JFrame {
                             for(int g =0;g<listaConjuntos.get(j).getListCaracteres().size();g++){
                                 //caracter de Entrada igual a un caracter de conjunto de listaConj
                                 if (String.valueOf(entrada.getCadena().charAt(h)).equals(listaConjuntos.get(j).getListCaracteres().get(g) )) {
+                                    //ultimo caracter
+                                    if (h == entrada.getCadena().length()-1) {
+                                        if (estadoActual.getAceptacion() == true) {
+                                            return true;
+                                        }else{return false;}
+                                    }
                                     banderaEncontro = true;
                                     break;
                                 }else{ //no es un carcter igual
@@ -487,8 +499,11 @@ public class Principal extends javax.swing.JFrame {
 //                 System.out.println(raiz.getPrimeros());                  
                    //obj para tab siguientes
                    TabSiguientes tabSig = arbol.getTabla();//obtengo toda la tabla siguientes
+                   //grafica tab siguietnes
+                   tabSig.GraficarTabla();
                    //se crea la tabla Trans
                    TabTransiciones tabTran = new TabTransiciones(raiz.getPrimeros(),tabSig);
+                   tabTran.GraficarTabla();
                    //iguala a var global listaEstado ^^^
                    //obj para automata generado
                    //Automata automata = new Automata(sintactico.lista_ER.get(0).getNombre(),tabTran.getListaEstados());
@@ -517,7 +532,7 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        ValidarCadena(entrada, listaEstados);
+        //ValidarCadena(entrada, listaEstados);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

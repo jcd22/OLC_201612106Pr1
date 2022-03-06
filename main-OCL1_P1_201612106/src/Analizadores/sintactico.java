@@ -270,7 +270,10 @@ class CUP$sintactico$actions {
           case 2: // OLC ::= llavea CUER_OLC llavec 
             {
               Object RESULT =null;
-
+		int var0left = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).left;
+		int var0right = ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).right;
+		String var0 = (String)((java_cup.runtime.Symbol) CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)).value;
+		
               CUP$sintactico$result = parser.getSymbolFactory().newSymbol("OLC",1, ((java_cup.runtime.Symbol)CUP$sintactico$stack.elementAt(CUP$sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$sintactico$stack.peek()), RESULT);
             }
           return CUP$sintactico$result;

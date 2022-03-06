@@ -5,6 +5,9 @@
  */
 package MetodoArbol;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 /**
@@ -14,17 +17,21 @@ import java.util.ArrayList;
 public class TabTransiciones {
     ArrayList<EstadoA> listaEstados = new ArrayList<>();//estados con sus transiciones
     TabSiguientes tabla;
+    ArrayList<String> listaColumnas;
    
     /**
      * @param primeros:recibe primeros de raiz para el estado 0
      */
    public TabTransiciones(ArrayList<Integer> primeros,TabSiguientes tabla){
        this.tabla = tabla;
+       this.listaColumnas = new ArrayList<>();
        EstadoA aux0 = new EstadoA(primeros);
        aux0.setNombre("S0");
        listaEstados.add(aux0);//crea primer estado S0
        
        HacerTabla();
+       //llena array columnas Hojas
+       LlenaColumnas();
    }
    //////////////////////
    //recibe raiz
@@ -95,6 +102,82 @@ public class TabTransiciones {
        return EstadoB.getNombre();
    }//BuscaEstado  
    
+   public void GraficarTabla(){
+        try {
+            String concatText= "";
+            concatText += "<!DOCTYPE html>\n" +
+                            "<html>\n" +
+                            "<head>\n" +
+                            "	<title></title>\n" +
+                            "	<link rel=\"stylesheet\" type=\"text/css\" href=\"masEscuchados1.css\">\n" +
+                            "</head>\n" +
+                            "<body>\n" +
+                        "<div class=\"container\">\n"+
+                            "<table>\n";
+            concatText += "<thead>\n" +
+                                "<tr>\n" +
+                    
+                                 "<th>Estado</th>\n";
+                        for (int i = 0; i < listaColumnas.size(); i++) {
+                            concatText += "<th>"+listaColumnas.get(i)+"</th>";
+                        }
+
+            concatText +=       "</tr>\n" +
+                         "</thead>\n"+
+                         "<tbody>\n";
+                       for (int i = 0; i < listaEstados.size(); i++) { //transiciones cada estado
+                           concatText += "<tr>\n" ;
+                           concatText += "<td>"+listaEstados.get(i).getNombre()+"</td>\n";//inserta nombre estado
+                            for (int j = 0; j < listaColumnas.size(); j++) {//for lista terminales
+                                // si encuentra esta columna en las transiciones 
+                                if (listaEstados.get(i).getTerminalesTran().indexOf(listaColumnas.get(j)) != -1) {
+                                 concatText += "<td> "+listaEstados.get(i).getEstadosTran().get(listaEstados.get(i).getTerminalesTran().indexOf(listaColumnas.get(j)))+" </td>\n";
+                                } else{
+                                 concatText += "<td> ♣------♣ </td>\n";//inserta vacia
+                                }
+                            }
+                           concatText +=  "</tr>\n";
+                       }
+            
+            concatText +="</tbody>\n"+
+                        "</table>\n"+
+                        "</div>\n" +
+                        "</body>\n" +
+                        "<script src=\"masEscuchados1.js\"></script>\n" +
+                        "</html>";
+            
+            FileOutputStream arch = new FileOutputStream(new File(".\\Transiciones\\TabTran"+Arbol.numArbol+".html"));
+                    
+            try (PrintStream imprimir = new PrintStream(arch))
+            {
+                imprimir.println(concatText);
+            }
+               //limpia dotArbol                   
+            //Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" cd .\\Arboles && dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
+            //Runtime.getRuntime().exec("dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
+            Thread.sleep(1000);
+                    
+        } catch (Exception e) {
+        }
+   }
+   
+   /**
+    * Llena columnas tabla transiciones
+    */
+   public void LlenaColumnas(){
+       try {
+       String auxTerminal="";
+       for (int i = 0; i <tabla.getTerminales().size(); i++) {
+           auxTerminal = tabla.getTerminales().get(i);
+           if (listaColumnas.indexOf(auxTerminal) == -1) {//no esta entonces incerto
+               listaColumnas.add(auxTerminal);
+           }
+       }
+       
+       } catch (Exception e) {
+       }
+
+   }
    
    
 //   public void verificarAceptacion(){//con indexOf

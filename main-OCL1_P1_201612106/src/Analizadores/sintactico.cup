@@ -73,7 +73,7 @@ precedence left andd,orr;
 start with INICIO;
 INICIO ::= OLC;
 
-OLC ::= llavea CUER_OLC llavec;
+OLC ::= llavea:var0 CUER_OLC llavec{::};
 
 CUER_OLC ::= SEC_TOKEN CUER_OLC2;
 

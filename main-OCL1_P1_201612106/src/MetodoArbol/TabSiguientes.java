@@ -5,6 +5,9 @@
  */
 package MetodoArbol;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +27,54 @@ public class TabSiguientes {
     }
 
     //----------------
+    public void GraficarTabla(){
+        try {
+            String concatText= "";
+            concatText += "<!DOCTYPE html>\n" +
+                            "<html>\n" +
+                            "<head>\n" +
+                            "	<title></title>\n" +
+                            "	<link rel=\"stylesheet\" type=\"text/css\" href=\"masEscuchados1.css\">\n" +
+                            "</head>\n" +
+                            "<body>\n" +
+                        "<div class=\"container\">\n"+
+                            "<table>\n";
+            concatText += "<thead>\n" +
+                                "<tr>\n" +
+                                 "<th>num hoja</th>\n" +
+                                 "<th>hoja</th>\n" +
+                                 "<th>Siguientes</th>\n" +
+                                "</tr>\n" +
+                         "</thead>\n"+
+                         "<tbody>\n";
+            for (int i = 0; i <numerados; i++) {
+                concatText += "<tr>\n" +
+                                "<td> "+(i+1)+" </td>\n" +
+                                "<td> "+terminales.get(i)+" </td>\n" +
+                                "<td> "+siguientes.get(i)+" </td>\n" +
+                             "</tr>\n";
+            }
+            concatText +="</tbody>\n"+
+                        "</table>\n"+
+                        "</div>\n" +
+                        "</body>\n" +
+                        "<script src=\"masEscuchados1.js\"></script>\n" +
+                        "</html>";
+            
+            FileOutputStream arch = new FileOutputStream(new File(".\\Siguientes\\TabSig"+Arbol.numArbol+".html"));
+                    
+            try (PrintStream imprimir = new PrintStream(arch))
+            {
+                imprimir.println(concatText);
+            }
+               //limpia dotArbol                   
+            //Runtime.getRuntime().exec("cmd /c start cmd.exe /K \" cd .\\Arboles && dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
+            //Runtime.getRuntime().exec("dot -Tpng Arbol"+numArbol+".dot -o Arbol"+numArbol+".png");
+            Thread.sleep(1000);
+                    
+        } catch (Exception e) {
+        }
+    }
     
     public ArrayList<ArrayList<Integer>> getSiguientes() {
         return siguientes;
